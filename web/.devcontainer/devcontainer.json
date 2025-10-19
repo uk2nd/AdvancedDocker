@@ -1,0 +1,19 @@
+// devcontainerの使い方
+// １．本フォルダおよびファイルを作成
+// ２．vs codeを新しいウィンドウで開く
+// ３．コマンドパレット（Ctrl+Shift+P）で「Dev Containers: Open folder in Containers ...」を実行
+// ４．使い終わったら、コマンドパレットで「Dev Containers: Close Remote Connection」を実行
+
+{
+    "name": "web-devcontainer",
+    "service": "web", // docker-composeで指定したservice名
+    "workspaceFolder": "/workspace", // ワークスペースのパス
+    "dockerComposeFile": "../../docker-compose.yml", // docker-compose.ymlのパス
+    "customizations": {
+        "vscode": {
+            "extensions": [ // インストールする拡張機能
+                "firsttris.vscode-jest-runner" // 各拡張機能のidentifier
+            ]
+        }
+    }
+}

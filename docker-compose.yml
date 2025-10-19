@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  api:
+    container_name: api # コンテナに任意の名前を付与
+    build: ./api
+    ports:
+      - "8080:8080"
+    tty: true # コンテナの標準入力を開いたままにする
+    volumes:
+      - ./api:/workspace:cached # ホストのapiディレクトリをコンテナの/workspaceにマウント
+
+  web:
+    container_name: web # コンテナに任意の名前を付与
+    build: 
+      context: ./web # Dockerfileのあるディレクトリを指定
+      target: base # マルチステージビルドのターゲットを指定
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_SERVER=http://localhost:8080/api # 環境変数を設定
+    tty: true # コンテナの標準入力を開いたままにする
+    volumes:
+      - ./web:/workspace:cached # ホストのwebディレクトリをコンテナの/usr/share/nginx/htmlにマウント
+    depends_on:
+      - api # webサービスはapiサービスに依存
