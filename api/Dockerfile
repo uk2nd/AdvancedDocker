@@ -8,6 +8,6 @@ WORKDIR /workspace
 RUN ./gradlew build
 
 # Production
-FROM openjdk:17 AS production
+FROM eclipse-temurin:17-jre AS production
 COPY --from=build-and-test /workspace/build/libs/api-0.0.1-SNAPSHOT.jar /app.jar
 CMD ["java", "-jar", "/app.jar"]
